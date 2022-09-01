@@ -27,6 +27,18 @@ function showWeather(evt) {
 document.querySelector('#weather-form').addEventListener('submit', showWeather);
 
 // PART 3: ORDER MELONS
+function updateMelons(results) {
+  if (results.code === "OK") {
+    document.querySelector('#order-status').classList.remove('.order-error');
+    document.querySelector('#order-status').innerHTML=`<p>${results.msg}</p>`;
+  } 
+  else {
+    document.querySelector('#order-status').classList.add('.order-error');
+    document.querySelector('#order-status').innerHTML=`<p>${results.msg}</p>`;
+
+  };
+}
+
 
 function orderMelons(evt) {
   evt.preventDefault();
@@ -46,3 +58,17 @@ function orderMelons(evt) {
   .then(updateMelons);
 }
 document.querySelector('#order-form').addEventListener('submit', orderMelons);
+
+// FURTHER STUDY
+
+function getDog(evt) {
+fetch('https://dog.ceo/api/breeds/image/random')
+.then((response) => response.json())
+.then((dogImage) => {
+  const imageURL = dogImage.message;
+  document.querySelector('#dog-image').insertAdjacentHTML('beforeend', `<div><img src=${imageURL}></div>`);
+  });
+
+};
+
+document.querySelector('#get-dog-image').addEventListener('click', getDog);
